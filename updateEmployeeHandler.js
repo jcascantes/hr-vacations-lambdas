@@ -4,9 +4,9 @@ const pool = new Pool({
   connectionString: process.env.connectionString
 });
 
-module.exports.createEmployee = (event, context, callback) => {
+module.exports.updateEmployee = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  const sql = 'INSERT INTO public."Employees"("Id", "FirstName", "LastName", "StartDate", "Status") VALUES ($1, $2, $3, $4, $5) RETURNING *';
+  const sql = 'UPDATE public."Employees" SET  "FirstName"=$2, "LastName"=$3, "StartDate"=$4, "Status"=$5 WHERE "Id"=$1 RETURNING *';
   const parameters = [event.Id,event.FirstName,event.LastName,event.StartDate,event.Status];
   pool.query(sql,parameters,(err, res) => {
     if (err) {
