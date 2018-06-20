@@ -1,7 +1,7 @@
 service: hr-vacations-api 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   region: us-east-2
 functions:
   getEmployee:
@@ -27,6 +27,17 @@ functions:
     - http:
         path: /employee
         method: post
+        cors: true
+        response:
+            headers:
+              Content-Type: "'application/json'"
+            template: $input.path('$')
+  updateEmployee:
+    handler: updateEmployeeHandler.updateEmployee
+    events:
+    - http:
+        path: /employee
+        method: PUT
         cors: true
         response:
             headers:

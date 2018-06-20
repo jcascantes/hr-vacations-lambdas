@@ -1,8 +1,7 @@
 const { Pool} = require('pg');
-const connectionString = 'postgresql://hr_vacations_user:hr_vacations_pwd@hr-vacations.chy3ncyrqtqy.us-east-2.rds.amazonaws.com:5432/hr_vacations';
 
 const pool = new Pool({
-  connectionString: connectionString,
+  connectionString: process.env.connectionString
 });
 
 module.exports.getEmployee = (event, context, callback) => {
